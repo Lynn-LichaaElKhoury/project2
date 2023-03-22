@@ -14,4 +14,11 @@ if not re.match(r"^https?:\/\/", domain):
     elif secure.lower() == "no":
         domain = "http://"+domain
     
+exits=requets.get(domain)
+
+try:
+    exists=requests.get(domain)
+except:
+    print("enter a domain that exists:")
+    exit()
 
