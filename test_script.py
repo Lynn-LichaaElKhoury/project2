@@ -22,15 +22,18 @@ except:
     print("enter a domain that exists:")
     exit()
 
-sub=open ("./inputsubdomains.bat","r")
+sub=open ("./subdomains_dictionary.bat","r")
 output=open ("./outputs/outputsubdomains.bat","w")
+
+trailing_spaces = r'^\s+|\s+$|[^a-zA-Z0-9\s]'
 
 with sub as l:
     sd=l.readline()
     while(l):
-        http=re.match(r"https?:\/\/",sd.rstrip())
-        temp=re.sub(r"https?:\/\/www\.","", sd)
-        newURL= http+sd+"."+temp
+        nospaces = re.sub(trailing_spaces, "", sd)
+        http=re.match(r"https?:\/\/",nospaces)
+        temp=re.sub(r"https?:\/\/www\.","", nospaces)
+        newURL= http+nospaces+"."+temp
         try:
             exist=requests.get(newURL)
             output.write(newURL+"\n")
@@ -39,3 +42,23 @@ with sub as l:
 
         sd=l.readline()
         
+
+dir=open("./dirs_disctionary.bat","r")
+outputd=open("./outputs/outputdirectories","w")
+
+with dir as l:
+    d= l.readline()
+    while (d):
+        nspaces=re.sub(trailing_spaces,"",d)
+        http=re.match(r"https?:\/\/",nospaces)
+        temp=re.sub(r"https?:\/\/www\.","", nospaces)
+        newURL= http+nospaces+"."+temp
+        try:
+            exist = requests.get(newURL)
+            outputd.write(newURL+"\n")
+        except:
+            pass
+        d = l.readline()
+    
+
+print("Done")
