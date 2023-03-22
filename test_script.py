@@ -31,4 +31,11 @@ with sub as l:
         http=re.match(r"https?:\/\/",sd.rstrip())
         temp=re.sub(r"https?:\/\/www\.","", sd)
         newURL= http+sd+"."+temp
+        try:
+            exist=requests.get(newURL)
+            output.write(newURL+"\n")
+        except:
+            pass
+
+        sd=l.readline()
         
