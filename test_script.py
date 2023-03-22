@@ -22,3 +22,5 @@ except:
     print("enter a domain that exists:")
     exit()
 
+sub=open ("./inputsubdomains.bat","r")
+output=open ("./outputs/outputsubdomains.bat","w")
