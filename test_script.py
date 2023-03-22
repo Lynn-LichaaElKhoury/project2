@@ -14,7 +14,7 @@ if not re.match(r"^https?:\/\/", domain):
     elif secure.lower() == "no":
         domain = "http://"+domain
     
-exits=requets.get(domain)
+exits=requests.get(domain)
 
 try:
     exists=requests.get(domain)
@@ -24,3 +24,11 @@ except:
 
 sub=open ("./inputsubdomains.bat","r")
 output=open ("./outputs/outputsubdomains.bat","w")
+
+with sub as l:
+    sd=l.readline()
+    while(l):
+        http=re.match(r"https?:\/\/",sd.rstrip())
+        temp=re.sub(r"https?:\/\/www\.","", sd)
+        newURL= http+sd+"."+temp
+        
