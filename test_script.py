@@ -1,6 +1,7 @@
 import re
 import argparse
 import requests
+from urllib.request import urlopen
 
 args = argparse.ArgumentParser()
 args.add_argument("domainName", help="'domain name")
@@ -60,5 +61,13 @@ with dir as l:
             pass
         d = l.readline()
     
+try:
+    html = urlopen(domain).read().decode()
+    f_output = open("./Output/files_output.bat", "w")
 
-print("Done")
+    link = r'<a\s+(?:[^>]*?\s+)?href="([^"]*)"'
+    matches = re.findall(link, html)
+    for link in list(matches):
+        f_output.write(link)
+except:
+    print("Forbidden access")
